@@ -1,0 +1,13 @@
+--Seamcarve README--
+
+Handin: Will resubmit later
+
+Design Choices:
+    Seamcarve has 2 classes: an App class and a MyPicturePane class. MyPicturePane implements the bulk of the seamcarve
+    algorithm in the findLowestCostSeam() method. It is implemented in three steps: 1) the importance array is calculated,
+    2) the cost and dirs arrays are calculated simultaneously, and 3) the least-cost seam is calculated using the cost
+    and dirs arrays.
+
+Known Bugs: none
+
+Test Cases: bLoBfIsH
