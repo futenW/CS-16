@@ -1,0 +1,58 @@
+--Graph README--
+
+Handin: might resubmit later
+
+Design Choices: I did not add any new classes. I used four decorations in the MyPrimJarnik algorithm: lowestCosts, prev,
+                entries, and inPQ. lowestCosts was used to keep track of smallest cost it would take to add each node to
+                the current minimum spanning forest/tree. Its values were used in sorting the nodes in the Priority Queue.
+                prev was used to keep track of the previous node it took to get to the current node the decoration was on.
+                This way, it was simple to add vertices and edges to the current minimum spanning tree. entries was used
+                to keep track of the specific entry object that held the particular vertice in the Priority Queue.
+                This made it easy to access individual vertex's in the priority queue. inPQ kept a boolean keeping track
+                of whether a particular vertice was in the priority queue, aka if it has already been visited. This was
+                utilized in the algorithm to update a particular vertice's neighbors and their lowest costs. I made a new
+                endNow() function in PageRank to test whether convergence has occurred and the do-while loop to update
+                page ranks should terminate prematurely. It takes in no input since only instance variables are utilized.
+                The handleSinks() method adds an edge extending to every other node including itself for every sink
+                in the input graph. updateRank() handles the loop for continuously updating the page rank at each iteration
+                until convergence occurs or the max iterations is up. All helper methods utilized instance variables so
+                no input was necessary. Only endNow() outputted a boolean variable.
+
+Known Bugs: n/a
+
+Conceptual Questions: Flag the blacklisted site and ensure that at the end of every pageRank distribution iteration, all
+              all or almost all of the page's accumulated pageRank "fluid" is evaporated and distributed to all other
+              nodes in the graph (preferably excluding other flagged pages). Alternatively, remove any edges pointing to
+              the blacklisted sites before the commencement of the algorithm. If any pageRank "fluid" is to be rained on
+              the page from dampening redistribution, rain it instead back on the original node (or somewhere else).
+
+Test Cases:
+    GraphTest:
+        - First test insertVertex for directed and undirected
+        - Test insertEdge for directed and undirected
+        - Test removeVertex for directed and undirected
+        - Test removedEdge for directed and undirected
+        - Test exceptions for insertVertex, insertEdge, removeVertex, removeEdge w/ null inputs
+        - Test remaining helper functions for proper functionality
+        - Test remaining helper functions for exceptions and invalid input
+    MsfTest:
+        - test on a simple three node graph to ensure everything works as expected
+        - test on an empty graph
+        - test on a graph with only a single node
+        - test on a graph with only two nodes and one edge
+        - test on a graph with two nodes and no edge
+        - test with four nodes, two edges, one between two nodes and one between the other two nodes
+        - test on an entire forest with three trees, each with a MST
+    PageRankTest:
+        - A simple test with four pages. Each page only has one outgoing link to a different page, resulting in a square
+          shape or cycle when visualized
+        - A simple test with three pages
+        - A simple test with zero pages
+        - A simple test with a single page
+        - A simple test with two unconnected pages. Each page only has zero outgoing link to a different page
+        - A simple test with two singly connected pages. One page only has one outgoing link to a different page, and
+          the other page has no outgoing links.
+        - A simple test with two pages pointing at each other. Each page only has one outgoing link to a different page
+        - A simple test with four pages
+        - A simple test with three pages
+        - A simple test with all sinks except for one node
