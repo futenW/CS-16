@@ -1,0 +1,74 @@
+--Heap README--
+
+Handin: Will resubmit later
+
+Design Choices:
+    Heap has 5 classes I edited: MyHeapEntry, MyHeap, MyLinkedHeapTree, and two test classes--MyHeapTest and
+    MyLinkedHeapTreeTest. MyHeapEntry represents and element that will be stored in the heap, MyLinkedHeapTree extends
+    an existing binary tree implementation to ensure left-completeness, and MyHeap represents the heap itself,
+    implementing its functionality. MyHeapTest tests the heap file and MyLinkedHeapTree tests the left-complete binary
+    tree implementation. In the MyHeap class, I added three helper methods: upHeap(), downHeap(), and swap(). upHeap()
+    repeatedly swaps a generic entry with its parent entry until its key is larger than its parent's. Similarly,
+    downHeap() repeatedly swaps a generic entry with the smaller of its two children's entries (if possible) until its
+    key is smaller than (or equal to) its children's. These two methods reduce redundant code within the MyHeap class,
+    promote abstraction, and allow for easier reading. swap() switches the entries at two given positions. I added a
+    position variable within MyHeapEntry (w/ accessor and mutator) to keep track of its own location within the heap.
+    setKey() and setValue() allow an entry's data to be changed without creating a new MyHeapEntry object every time.
+    The add() and remove() methods within MyLinkedHeapTree keep track of where to add and remove nodes in the tree while
+    maintaining left-completeness by use of a deque data structure. The front of the deque keeps track track of the next
+    parent node to add the next new node, while the back of the deque keeps track of the last node added i.e. the next
+    node to remove to maintain left-completeness. All of the methods within MyLinkedHeapTree run in constant O(1)
+    worst-case time, as the deque data structure implementation ensures that the next position to add/remove can be
+    instantly accessed without traversing any variable-amount arrangement of data.MyLinkedHeapTree has a getLast()
+    method, which returns the item last added to the back of its deque a.k.a. the last node added to the tree. This is
+    used in the remove() and removeMin() methods in MyHeap to find the last node of the tree and swap it with the node to remove.
+
+Known Bugs: n/a
+
+Test Cases:
+    MyLinkedHeapTreeTest:
+        - First tests add() method by adding multiple elements, asserting certain conditions, and
+          attempts to add again, when new elements are and aren't the new min and checking conditions again.
+        - Then tests remove() method by removing nodes and asserting certain conditions.
+        - Then ensures EmptyTreeException is thrown when trying to remove from an empty tree.
+        - Then tests the getLast() method by incrementally inserting and checking the last node of the tree
+          using the method.
+        - getLast() is then used to check the left-completeness functionality of the add() and remove() methods.
+
+    MyHeapTest:
+        - First tests comparator by setting a new comparator using setComparator() after already initialized
+        - Then tries to reset comparator while heap is not empty, throwing an IllegalStateException
+        - Then should throw IllegalArgumentException while trying to set a null comparator
+        - Then tests size() method by repeatedly checking the size when the heap is empty and when it is not
+        - Then tests isEmpty() method by repeatedly checking if it is empty when is really is and when it really isn't
+        - Test min() method by finding the min of a string of different valued keys, then repeatedly removing the min
+          to find the new min
+        - Throws EmptyPriorityQueueException while trying to find the min() of an empty heap
+        - Then tests insert by many different types of (legal) keys and values, including negatives and asserting
+          whether they should be the min
+        - Inserts a single element only
+        - Check to see if an InvalidKeyException is being correctly thrown after passing in a null key to insert
+        - removeMin() passing in negative values, asserting each is correct min when removed
+        - Then check that the order of the heap is sorted as per the keys by comparing a list of the
+          actual and expected keys
+        - Then tests heap ordering by ensuring that the min key is always at the root by checking it
+          explicitly each time, using multiple asserts rather than a list
+        - Check to see if an EmptyPriorityQueueException is being correctly thrown after calling removeMin()
+          on an empty heap
+        - Check to see if an InvalidEntryException is being correctly thrown after passing null
+          entry parameter to remove()
+        - Tests remove() by repeatedly removing specified key and asserting it is the correct key, and heap
+          remains correct
+        - Test replaceKey() by constantly replacing the min key with something greater, asserting is returned the
+          correct min, finding the new min, and constantly replacing it, eventually getting to the replaced keys,
+          ensuring heap remains in order, and replacing those
+        - Check to see if an InvalidKeyException is being correctly thrown after passing in a null key to replaceKey()
+        - Check to see if an InvalidEntryException is being correctly thrown after passing in a null
+          entry to replaceKey()
+        - Test replaceValue() correctly returns the old value, replaces with a new value, and then later calling on it
+          again, returning new replaced value
+        - Test can replaceKey() can handle negatives
+        - Test replaceValue() and insert() with null
+        - Test replaceValue() and insert() with booleans
+        - Check to see if an InvalidEntryException is being correctly thrown after passing a null
+          parameter to replaceValue().
